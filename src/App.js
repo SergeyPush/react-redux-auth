@@ -4,15 +4,19 @@ import routes from "./routes";
 import "./App.css";
 
 function App() {
-  const activeStyle = {
+  const activeLink = {
     color: "palevioletred"
   };
   return (
     <div className="App">
       <BrowserRouter>
         <nav>
-          <NavLink to={routes.REGISTER.path}>Register</NavLink>
-          <NavLink to={routes.LOGIN.path}>Login</NavLink>
+          <NavLink to={routes.REGISTER.path} activeStyle={activeLink}>
+            Register
+          </NavLink>
+          <NavLink to={routes.LOGIN.path} activeStyle={activeLink}>
+            Login
+          </NavLink>
         </nav>
 
         <Switch>
