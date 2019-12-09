@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import routes from "./routes";
+import "./App.css";
 
 function App() {
+  const activeStyle = {
+    color: "palevioletred"
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <nav>
+          <NavLink to={routes.REGISTER.path}>Register</NavLink>
+          <NavLink to={routes.LOGIN.path}>Login</NavLink>
+        </nav>
+
+        <Switch>
+          <Route
+            path={routes.REGISTER.path}
+            component={routes.REGISTER.component}
+          />
+          <Route path={routes.LOGIN.path} component={routes.LOGIN.component} />
+          <Route exact path="/" />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
