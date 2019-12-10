@@ -1,5 +1,6 @@
 import RegisterView from "./views/RegisterView/components/RegisterView";
 import LoginView from "./views/LoginView/components/LoginView";
+import LogoutView from "./views/LogoutView/components/LogoutView";
 
 export default {
   REGISTER: {
@@ -9,5 +10,9 @@ export default {
   LOGIN: {
     path: "/login",
     component: LoginView
+  },
+  LOGOUT: {
+    path: "/logout",
+    component: LogoutView
   }
 };

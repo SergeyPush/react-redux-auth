@@ -12,10 +12,13 @@ function App() {
       <BrowserRouter>
         <nav>
           <NavLink to={routes.REGISTER.path} activeStyle={activeLink}>
-            Register
+            |Register|
           </NavLink>
           <NavLink to={routes.LOGIN.path} activeStyle={activeLink}>
-            Login
+            |Login|
+          </NavLink>
+          <NavLink to={routes.LOGOUT.path} activeStyle={activeLink}>
+            |Logout|
           </NavLink>
         </nav>
 
@@ -25,6 +28,10 @@ function App() {
             component={routes.REGISTER.component}
           />
           <Route path={routes.LOGIN.path} component={routes.LOGIN.component} />
+          <Route
+            path={routes.LOGOUT.path}
+            component={routes.LOGOUT.component}
+          />
           <Route exact path="/" />
         </Switch>
       </BrowserRouter>
