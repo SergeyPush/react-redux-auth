@@ -15,40 +15,44 @@ class RegisterView extends Component {
   render() {
     const { name, email, password } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="">
-          Name
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-            autoComplete="off"
-          />
-        </label>
-        <label htmlFor="">
-          Email
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-            autoComplete="off"
-          />
-        </label>
-        <label htmlFor="">
-          Password
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            autoComplete="off"
-          />
-        </label>
+      <div>
+        <h1>Register Page</h1>
 
-        <button type="submit">Register</button>
-      </form>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="">
+            Name
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={this.handleChange}
+              autoComplete="off"
+            />
+          </label>
+          <label htmlFor="">
+            Email
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+              autoComplete="off"
+            />
+          </label>
+          <label htmlFor="">
+            Password
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+              autoComplete="off"
+            />
+          </label>
+
+          <button type="submit">Register</button>
+        </form>
+      </div>
     );
   }
 }

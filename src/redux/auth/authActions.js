@@ -11,6 +11,18 @@ export const registerFailure = error => ({
   payload: error
 });
 
+export const loginStart = () => ({ type: actionTypes.LOGIN_START });
+
+export const loginSuccess = ({ user, token }) => ({
+  type: actionTypes.LOGIN_SUCCESS,
+  payload: { user, token }
+});
+
+export const loginFailure = error => ({
+  type: actionTypes.LOGIN_FAILURE,
+  payload: error
+});
+
 export const logoutStart = () => ({ type: actionTypes.LOGOUT_START });
 
 export const logoutSuccess = () => ({

@@ -7,7 +7,10 @@ const userReducer = (
 ) => {
   switch (type) {
     case authActionTypes.REGISTER_SUCCESS:
+    case authActionTypes.LOGIN_SUCCESS:
       return payload.user;
+    case authActionTypes.LOGOUT_SUCCESS:
+      return { name: null, email: null };
     default:
       return state;
   }
@@ -16,7 +19,10 @@ const userReducer = (
 const tokenReducer = (state = null, { type, payload }) => {
   switch (type) {
     case authActionTypes.REGISTER_SUCCESS:
+    case authActionTypes.LOGIN_SUCCESS:
       return payload.token;
+    case authActionTypes.LOGOUT_SUCCESS:
+      return null;
     default:
       return state;
   }
@@ -25,7 +31,9 @@ const tokenReducer = (state = null, { type, payload }) => {
 const errorReducer = (state = null, { type, payload }) => {
   switch (type) {
     case authActionTypes.REGISTER_FAILURE:
-      return payload.error;
+    case authActionTypes.LOGOUT_FAILURE:
+    case authActionTypes.LOGIN_FAILURE:
+      return payload;
     default:
       return state;
   }
