@@ -10,6 +10,7 @@ class LoginView extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
+    console.log("handle submit");
     this.props.onRegister({ ...this.state });
   };
   render() {
@@ -39,7 +40,7 @@ class LoginView extends Component {
             />
           </label>
 
-          <button type="submit">Register</button>
+          <button type="submit">Login</button>
         </form>
       </div>
     );
