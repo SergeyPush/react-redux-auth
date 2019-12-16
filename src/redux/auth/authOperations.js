@@ -4,12 +4,23 @@ import * as authActions from "./authActions";
 
 axios.defaults.baseURL = "https://lpj-tasker.herokuapp.com";
 
+const setToken = token => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+const unsetToken = () => {
+  axios.defaults.headers.common["Authorization"] = "";
+};
+
 export const registerUser = credentials => dispatch => {
   dispatch(authActions.registerStart());
 
   axios
     .post("/users/signup", credentials)
-    .then(response => dispatch(authActions.registerSuccess(response.data)))
+    .then(response => {
+      setToken(response.data.token);
+      dispatch(authActions.registerSuccess(response.data));
+    })
     .catch(error => dispatch(authActions.registerFailure(error)));
 
   // fetch("https://lpj-tasker.herokuapp.com/users/signup", {
@@ -24,32 +35,15 @@ export const registerUser = credentials => dispatch => {
   //   .catch(error => dispatch(authActions.registerFailure(error)));
 };
 
-export const logoutUser = () => (dispatch, getState) => {
-  const state = getState();
-  const { token } = state.auth;
-  // if (token === null) return;
-
-  dispatch(authActions.logoutStart());
-
-  fetch("https://lpj-tasker.herokuapp.com/users/logout", {
-    method: "POST",
-    headers: {
-      // "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then(res => res.json())
-    .then(() => dispatch(authActions.logoutSuccess()))
-    .catch(error => dispatch(authActions.logoutFailure(error)));
-};
-
 export const loginUser = credentials => dispatch => {
-  console.log("Login fetch");
   dispatch(authActions.loginStart());
 
   axios
     .post("/users/login", credentials)
-    .then(response => dispatch(authActions.loginSuccess(response.data)))
+    .then(response => {
+      setToken(response.data.token);
+      dispatch(authActions.loginSuccess(response.data));
+    })
     .catch(error => dispatch(authActions.loginFailure(error)));
 
   // fetch("/users/login", {
@@ -62,4 +56,36 @@ export const loginUser = credentials => dispatch => {
   //   .then(res => res.json())
   //   .then(data => dispatch(authActions.loginSuccess(data)))
   //   .catch(error => dispatch(authActions.loginFailure(error)));
+};
+
+export const getCurrentUser = () => (dispatch, getState) => {
+  const state = getState();
+  const token = state.auth.token;
+
+  if (!token) {
+    return;
+  }
+  setToken(token);
+  dispatch(authActions.getCurrentStart());
+
+  axios
+    .get("/users/current")
+    .then(user => dispatch(authActions.getCurrentSuccess(user)))
+    .catch(error => dispatch(authActions.getCurrentFailure(error)));
+};
+
+export const logoutUser = () => dispatch => {
+  // const state = getState();
+  // const { token } = state.auth;
+  // // if (token === null) return;
+
+  dispatch(authActions.logoutStart());
+
+  axios
+    .post("/users/logout")
+    .then(() => {
+      unsetToken();
+      dispatch(authActions.logoutSuccess());
+    })
+    .catch(error => dispatch(authActions.logoutFailure(error)));
 };

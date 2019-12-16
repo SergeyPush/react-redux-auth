@@ -1,42 +1,50 @@
-import React from "react";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import routes from "./routes";
 import "./App.css";
+import Layout from "./common/Layout";
+import { connect } from "react-redux";
+import * as authOperations from "./redux/auth/authOperations";
 
-function App() {
-  const activeLink = {
-    color: "palevioletred"
-  };
+function App({ onGetCurrentUser }) {
+  useEffect(() => {
+    onGetCurrentUser();
+  });
   return (
     <div className="App">
       <BrowserRouter>
-        <nav>
-          <NavLink to={routes.REGISTER.path} activeStyle={activeLink}>
-            |Register|
-          </NavLink>
-          <NavLink to={routes.LOGIN.path} activeStyle={activeLink}>
-            |Login|
-          </NavLink>
-          <NavLink to={routes.LOGOUT.path} activeStyle={activeLink}>
-            |Logout|
-          </NavLink>
-        </nav>
-
-        <Switch>
-          <Route
-            path={routes.REGISTER.path}
-            component={routes.REGISTER.component}
-          />
-          <Route path={routes.LOGIN.path} component={routes.LOGIN.component} />
-          <Route
-            path={routes.LOGOUT.path}
-            component={routes.LOGOUT.component}
-          />
-          <Route exact path="/" />
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route
+              path={routes.REGISTER.path}
+              component={routes.REGISTER.component}
+            />
+            <Route
+              path={routes.LOGIN.path}
+              component={routes.LOGIN.component}
+            />
+            <Route
+              path={routes.LOGOUT.path}
+              component={routes.LOGOUT.component}
+            />
+            <Route
+              path={routes.TASKS.path}
+              component={routes.TASKS.component}
+            />
+            <Route
+              exact={routes.HOME.exact}
+              path={routes.HOME.path}
+              component={routes.HOME.component}
+            />
+          </Switch>
+        </Layout>
       </BrowserRouter>
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  onGetCurrentUser: () => dispatch(authOperations.getCurrentUser())
+});
+
+export default connect(null, mapDispatchToProps)(App);
