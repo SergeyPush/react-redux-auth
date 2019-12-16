@@ -9,7 +9,7 @@ import * as authOperations from "./redux/auth/authOperations";
 function App({ onGetCurrentUser }) {
   useEffect(() => {
     onGetCurrentUser();
-  });
+  }, [onGetCurrentUser]);
   return (
     <div className="App">
       <BrowserRouter>

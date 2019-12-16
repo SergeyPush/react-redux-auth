@@ -35,6 +35,7 @@ const errorReducer = (state = null, { type, payload }) => {
     case authActionTypes.LOGOUT_FAILURE:
     case authActionTypes.LOGIN_FAILURE:
     case authActionTypes.GET_CURRENT_FAILURE:
+      console.log(payload);
       return payload;
     default:
       return state;
