@@ -5,7 +5,17 @@ import { Redirect } from "react-router-dom";
 
 const wuthAuthenticate = Component => {
   function WithAuthRedirect({ isAuthenticated, ...restProps }) {
-    return isAuthenticated ? <Redirect to="/" /> : <Component {...restProps} />;
+    return isAuthenticated ? (
+      <Redirect
+        to={
+          restProps.location.state.from.pathname
+            ? restProps.location.state.from.pathname
+            : "/"
+        }
+      />
+    ) : (
+      <Component {...restProps} />
+    );
   }
 
   const mapStateToProps = state => ({

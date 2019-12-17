@@ -5,6 +5,7 @@ import "./App.css";
 import Layout from "./common/Layout";
 import { connect } from "react-redux";
 import * as authOperations from "./redux/auth/authOperations";
+import PrivateRoute from "./common/PrivateRoute";
 
 function App({ onGetCurrentUser }) {
   useEffect(() => {
@@ -27,7 +28,7 @@ function App({ onGetCurrentUser }) {
               path={routes.LOGOUT.path}
               component={routes.LOGOUT.component}
             />
-            <Route
+            <PrivateRoute
               path={routes.TASKS.path}
               component={routes.TASKS.component}
             />
