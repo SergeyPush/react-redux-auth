@@ -22,17 +22,6 @@ export const registerUser = credentials => dispatch => {
       dispatch(authActions.registerSuccess(response.data));
     })
     .catch(error => dispatch(authActions.registerFailure(error)));
-
-  // fetch("https://lpj-tasker.herokuapp.com/users/signup", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   },
-  //   body: JSON.stringify(credentials)
-  // })
-  //   .then(res => res.json())
-  //   .then(data => dispatch(authActions.registerSuccess(data)))
-  //   .catch(error => dispatch(authActions.registerFailure(error)));
 };
 
 export const loginUser = credentials => dispatch => {
@@ -45,17 +34,6 @@ export const loginUser = credentials => dispatch => {
       dispatch(authActions.loginSuccess(response.data));
     })
     .catch(error => dispatch(authActions.loginFailure(error)));
-
-  // fetch("/users/login", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   },
-  //   body: JSON.stringify(credentials)
-  // })
-  //   .then(res => res.json())
-  //   .then(data => dispatch(authActions.loginSuccess(data)))
-  //   .catch(error => dispatch(authActions.loginFailure(error)));
 };
 
 export const getCurrentUser = () => (dispatch, getState) => {
@@ -70,15 +48,14 @@ export const getCurrentUser = () => (dispatch, getState) => {
 
   axios
     .get("/users/current")
-    .then(user => dispatch(authActions.getCurrentSuccess(user)))
+    .then(response => {
+      const res = { user: response.data };
+      dispatch(authActions.getCurrentSuccess(res));
+    })
     .catch(error => dispatch(authActions.getCurrentFailure(error)));
 };
 
 export const logoutUser = () => dispatch => {
-  // const state = getState();
-  // const { token } = state.auth;
-  // // if (token === null) return;
-
   dispatch(authActions.logoutStart());
 
   axios
