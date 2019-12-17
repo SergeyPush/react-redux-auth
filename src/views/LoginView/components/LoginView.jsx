@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import * as authOperations from "../../../redux/auth/authOperations";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import withAuthenticate from "../../../common/hoc/wuthAuthenticate";
 
 class LoginView extends Component {
   state = { email: "", password: "" };
@@ -10,7 +12,6 @@ class LoginView extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    console.log("handle submit");
     this.props.onRegister({ ...this.state });
   };
   render() {
@@ -51,4 +52,7 @@ const mapDispatchToProps = dispatch => ({
   onRegister: credentials => dispatch(authOperations.loginUser(credentials))
 });
 
-export default connect(null, mapDispatchToProps)(LoginView);
+export default compose(
+  withAuthenticate,
+  connect(null, mapDispatchToProps)
+)(LoginView);

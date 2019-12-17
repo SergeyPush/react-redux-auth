@@ -36,14 +36,10 @@ export const logoutFailure = error => ({
 
 export const getCurrentStart = () => ({ type: actionTypes.GET_CURRENT_START });
 
-export const getCurrentSuccess = user => {
-  console.log("Success action");
-
-  return {
-    type: actionTypes.GET_CURRENT_SUCCESS,
-    payload: user
-  };
-};
+export const getCurrentSuccess = user => ({
+  type: actionTypes.GET_CURRENT_SUCCESS,
+  payload: user
+});
 
 export const getCurrentFailure = error => ({
   type: actionTypes.GET_CURRENT_FAILURE,

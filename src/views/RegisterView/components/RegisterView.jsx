@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import * as authOperations from "../../../redux/auth/authOperations";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import withAuthenticate from "../../../common/hoc/wuthAuthenticate";
 
 class RegisterView extends Component {
   state = { name: "", email: "", password: "" };
@@ -61,4 +63,7 @@ const mapDispatchToProps = dispatch => ({
   onRegister: credentials => dispatch(authOperations.registerUser(credentials))
 });
 
-export default connect(null, mapDispatchToProps)(RegisterView);
+export default compose(
+  withAuthenticate,
+  connect(null, mapDispatchToProps)
+)(RegisterView);
